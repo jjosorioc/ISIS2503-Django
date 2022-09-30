@@ -6,14 +6,14 @@
         <div class="page-header-title">
             <h4 class="page-title">Lista Solicitudes</h4>
 
-            <form method = "get">
-                {{myFilter.form.as_p}}
-                <button type="submit">Search</button>
-            </form>
+            
             
 
             <div class="panel panel-default">
                 <div class="panel-body">
+                    <form action="{% url 'listaSolicitudes' %}" method="get">
+                        <input name='q' type="text" placeholder="Buscar identificación empleado">
+                    </form>
                     <table class="table table-hover">
                         <thead>
                         <tr style="color:#0E2EB0">
@@ -25,6 +25,7 @@
                         </tr>
                         </thead>
                         <tbody>
+                        
 
                         {% comment %} 'solicitudes' == context de listaSolicitudes {% endcomment %}
                         {% for Solicitud in solicitudes %} 
@@ -40,6 +41,8 @@
 
                         </tbody>
                     </table>
+
+                   
 
                     <div style="text-align:center;">
                         <button type="button" class="btn btn-primary waves-effect waves-light"
