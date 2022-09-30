@@ -42,9 +42,6 @@ INSTALLED_APPS = [
     "EmpleadoAfiliado",
     "EmpresaAfiliada",
     "Solicitud",
-    "Documento.Cedula",
-    "Documento.CertificacionLaboral", 
-
 ]
 
 MIDDLEWARE = [
