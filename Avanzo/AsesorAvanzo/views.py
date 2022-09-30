@@ -1,13 +1,14 @@
 from django.shortcuts import render
 
 
-from .logic.logic_asesorAvanzo import get_empleadosAfiliados, get_solicitudes
+from .logic.logic_asesorAvanzo import  get_solicitudes, getSolicitudesByEmpleado
 
 
-def listaEmpleados(request):
-    empleadosAfiliados = get_empleadosAfiliados()
+def listaSolicitudPorEmpleado(request, id):
+    solicitudes = getSolicitudesByEmpleado(id)
 
-    return render(request, 'asesor.html', {'empleadosAfiliados': empleadosAfiliados})
+
+    return render(request, 'asesor.html', {'solicitudesFilter': solicitudes})
 
 def listaSolicitudes(request):
     solicitudes = get_solicitudes()

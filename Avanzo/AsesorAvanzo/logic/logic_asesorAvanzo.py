@@ -10,6 +10,12 @@ def get_empleadosAfiliados():
 
     return queryset
 
+def getSolicitudesByEmpleado(id):
+    queryset = Solicitud.objects.filter(empleadoAfiliado = id)
+    print("By Empleado: " , queryset)
+    return queryset
+
+
 def get_solicitudes():
     queryset = Solicitud.objects.all()
 
