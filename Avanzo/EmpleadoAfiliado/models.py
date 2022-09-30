@@ -11,4 +11,8 @@ class EmpleadoAfiliado(models.Model):
 
     # Una empresa tiene varios empleados
     empresa = models.ForeignKey(EmpresaAfiliada, on_delete=models.CASCADE)
+
+
+    def __str__(self) -> str:
+        return self.nombre + " | Empresa: " + self.empresa.nombre
     

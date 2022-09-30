@@ -28,8 +28,8 @@ class Documento(models.Model):
     )
 
 
-    solicitud = models.ForeignKey(Solicitud, on_delete = models.CASCADE)
-
+    solicitud = models.ForeignKey(Solicitud, on_delete = models.CASCADE, null = True)
+    
     class Meta:
         abstract = True
 
@@ -46,11 +46,17 @@ class CertificacionLaboral(Documento):
     #Identificación del afiliado
     numCedula = models.CharField(max_length=15)
 
+    empresa = models.ForeignKey(EmpresaAfiliada, on_delete=models.CASCADE)
+    
     lugarExpedicion = models.CharField(max_length=100)
 
     salario = models.FloatField()
 
     terminoContrato = models.CharField(max_length=100) 
+
+    def __str__(self) -> str:
+        return self.nombre + " | " + str(self.empresa) + " | "+ self.terminoContrato
+
 
 
 class Cedula(Documento):
@@ -71,6 +77,10 @@ class Cedula(Documento):
 
     sexo = models.CharField(max_length=1)
 
+    def __str__(self) -> str:
+        return self.nombres + " " + self.apellidos + " | " + self.numero
+
+
 
 class CertificacionBancaria(Documento):
     """Certificación Bancaria
@@ -90,14 +100,22 @@ class CertificacionBancaria(Documento):
     correo = models.CharField(max_length=30)
 
 
+    # Quien quiere ver la certificación bancaria
     destinatario = models.CharField(max_length=50)
 
+    bancoCuenta = models.CharField(max_length=50)
+
     tipoCuenta = models.CharField(max_length=30)
+
+    numeroCuenta = models.CharField(max_length=30)
+
+    def __str__(self) -> str:
+        return self.destinatario + " | "+ self.bancoCuenta + " | " + self.tipoCuenta + " | " + self.numeroCuenta
 
 
 class ComprobantePago(Documento):
 
-    empresa = models.ForeignKey(EmpresaAfiliada, on_delete=models.CASCADE)
+    empresaComprobante = models.ForeignKey(EmpresaAfiliada, on_delete=models.CASCADE)
 
     idComprobante = models.CharField(max_length=50)
 
@@ -110,3 +128,7 @@ class ComprobantePago(Documento):
     fecha = models.DateField()
 
     direccion = models.CharField(max_length = 50)
+
+
+    def __str__(self) -> str:
+        return str(self.empresaComprobante) + " | "+ self.destinatario + " | " + str(self.cantidad) 
