@@ -41,7 +41,9 @@ INSTALLED_APPS = [
     "Documento",
     "EmpleadoAfiliado",
     "EmpresaAfiliada",
-    "Solicitud"
+    "Solicitud",
+    "Documento.Cedula",
+    "Documento.CertificadoLaboral", #TODO: Agregar a la lista de apps instaladas y migrar
 
 ]
 
