@@ -1,61 +1,64 @@
- {% extends 'base.html' %}
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 
 <div class="content">
-    <div class="">
-        <div class="page-header-title">
-            <h4 class="page-title">Lista Solicitudes</h4>
+  <div class="">
+    <div class="page-header-title">
+      <h4 class="page-title">Lista Solicitudes</h4>
 
-            
-            
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <form action="{% url 'listaSolicitudes' %}" method="get">
+            <input
+              name="q"
+              type="text"
+              placeholder="Buscar identificación empleado"
+            />
+          </form>
+          <table class="table table-hover">
+            <thead>
+              <tr style="color: #0e2eb0">
+                <th>ID</th>
+                <th font color="red">Empleado</th>
 
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <form action="{% url 'listaSolicitudes' %}" method="get">
-                        <input name='q' type="text" placeholder="Buscar identificación empleado">
-                    </form>
-                    <table class="table table-hover">
-                        <thead>
-                        <tr style="color:#0E2EB0">
-                            <th font color="red">Empleado</th>
-                            <th>Cantidad</th>
-                            <th>Fecha de Pago</th>
-                            <th>Asesor</th>
-                            <th>Estado</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        
+                <th>Cantidad</th>
+                <th>Fecha de Pago</th>
+                <th>Asesor</th>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+             {% for Solicitud in solicitudes %}
+              <tr>
+                <td>
+                  <a href="{% url 'detailSolicitud' Solicitud.id %}"
+                    >{{ Solicitud.id }}</a
+                  >
+                </td>
+                <td>{{ Solicitud.empleadoAfiliado.nombre }}</td>
 
-                        {% comment %} 'solicitudes' == context de listaSolicitudes {% endcomment %}
-                        {% for Solicitud in solicitudes %} 
-                        <tr>
-                            <td>{{ Solicitud.empleadoAfiliado.nombre }}</td>
-                            <td>{{ Solicitud.cantidad }}</td>
-                            <td>{{ Solicitud.fechaPago }}</td>
-                            <td>{{ Solicitud.asesor.nombre }}</td>
-                            <td>{{ Solicitud.estado }}</td>
-                            
-                        </tr>
-                        {% endfor %}
+                <td>{{ Solicitud.cantidad }}</td>
+                <td>{{ Solicitud.fechaPago }}</td>
+                <td>{{ Solicitud.asesor.nombre }}</td>
+                <td>{{ Solicitud.estado }}</td>
+              </tr>
 
-                        </tbody>
-                    </table>
+              {% endfor %}
+            </tbody>
+          </table>
 
-                   
-
-                    <div style="text-align:center;">
-                        <button type="button" class="btn btn-primary waves-effect waves-light"
-                                onClick=" window.location.href='/' ">
-                            Back
-                        </button>
-                    </div>
-
-                </div>
-            </div>
+          <div style="text-align: center">
+            <button
+              type="button"
+              class="btn btn-primary waves-effect waves-light"
+              onClick=" window.location.href='/' "
+            >
+              Back
+            </button>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
-
 
 {% endblock %}

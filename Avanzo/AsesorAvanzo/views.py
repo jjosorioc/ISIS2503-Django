@@ -1,5 +1,7 @@
 from django.shortcuts import render
 
+from Solicitud.models import Solicitud
+
 
 from .logic.logic_asesorAvanzo import  get_solicitudes, getSolicitudesByEmpleado
 
@@ -20,3 +22,13 @@ def listaSolicitudes(request):
             solicitudes = old
     
     return render(request, 'asesor.html', {'solicitudes': solicitudes})
+
+def getSolicitudById(id):
+    queryset = Solicitud.objects.get(id=id)
+    return queryset   
+
+def detailSolicitud(request, id):
+    print("id: ", id)
+    solicitud = getSolicitudById(id)
+    print(solicitud)
+    return render(request, 'detailSolicitud.html', {'solicitud': solicitud})
