@@ -11,9 +11,16 @@ def get_empleadosAfiliados():
     return queryset
 
 def getSolicitudesByEmpleado(id):
-    queryset = Solicitud.objects.filter(empleadoAfiliado = id)
-    print("By Empleado: " , queryset)
-    return queryset
+    empleados = get_empleadosAfiliados()
+    try:
+        
+        empleados = empleados.get(identificacion=id)
+    
+        queryset = Solicitud.objects.filter(empleadoAfiliado = empleados)
+        print("By Empleado: " , queryset)
+        return queryset
+    except:
+        return None
 
 
 def get_solicitudes():
