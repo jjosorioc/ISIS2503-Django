@@ -11,7 +11,7 @@
             <input
               name="q"
               type="text"
-              placeholder="Buscar identificación empleado"
+              placeholder="Ingresa la Cédula"
             />
           </form>
           <table class="table table-hover">
@@ -30,8 +30,7 @@
              {% for Solicitud in solicitudes %}
               <tr>
                 <td>
-                  <a href="{% url 'detailSolicitud' Solicitud.id %}"
-                    >{{ Solicitud.id }}</a
+                  <a href="{% url 'detailSolicitud' Solicitud.id %}">{{ Solicitud.id }}</a
                   >
                 </td>
                 <td>{{ Solicitud.empleadoAfiliado.nombre }}</td>
