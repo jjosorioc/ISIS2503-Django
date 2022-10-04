@@ -14,7 +14,6 @@ def listaSolicitudes(request):
     id=request.GET.get('q')
     if id != None:
 
-        print("id " ,id)
         old = solicitudes
         solicitudes = getSolicitudesByEmpleado(id)
 
@@ -30,5 +29,4 @@ def getSolicitudById(id):
 def detailSolicitud(request, id):
     print("id: ", id)
     solicitud = getSolicitudById(id)
-    print(solicitud)
     return render(request, 'detailSolicitud.html', {'solicitud': solicitud})

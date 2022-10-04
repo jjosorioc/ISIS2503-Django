@@ -30,7 +30,7 @@
              {% for Solicitud in solicitudes %}
               <tr>
                 <td>
-                  <a href="{% url 'detailSolicitud' Solicitud.id %}">{{ Solicitud.id }}</a
+                  <a href="{% url 'detailSolicitud' Solicitud.id %}" ><b>{{ Solicitud.id }}</b></a
                   >
                 </td>
                 <td>{{ Solicitud.empleadoAfiliado.nombre }}</td>
