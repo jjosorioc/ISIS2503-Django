@@ -21,4 +21,5 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path('', views.index),
     path('', include('Solicitud.urls')),
+    path('health-check/', views.healthCheck),
 ]

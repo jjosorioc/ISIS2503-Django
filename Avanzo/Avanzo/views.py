@@ -6,4 +6,4 @@ def index(request):
     return render(request, 'index.html') #TODO: Arreglar esto
 
 def healthCheck(request):
-    return HttpResponse("OK")
+    return HttpResponse("ok")
