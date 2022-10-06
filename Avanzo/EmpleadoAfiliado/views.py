@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from logic.logic_empleadoAfiliado import get_solicitudesByEmpleado, get_empleado_by_identificacion, get_solicitudes
+from logic.logic_empleadoAfiliado import get_solicitudesByEmpleado, get_empleado_by_identificacion, get_solicitudes  # type: ignore
 
 
 def solicitudes_list(request):

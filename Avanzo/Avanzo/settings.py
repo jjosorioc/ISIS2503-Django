@@ -82,7 +82,12 @@ WSGI_APPLICATION = "Avanzo.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        # "NAME": BASE_DIR / "db.sqlite3",
+        'NAME': 'solicitudes_db',
+        'USER': 'avanzo_db',
+        'PASSWORD': 'isis2503',
+        'HOST': '',
+        'PORT': '5432',
     }
 }
 
