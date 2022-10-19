@@ -31,6 +31,33 @@
             </tbody>
           </table>
 
+          <button onclick="showDiv()">Subir documento</button>
+
+          <div id="div1" style="display:none;">
+            <form method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              <input type="file" name="file" />
+              <select name="tipo">
+                <option value="Cedula">Cedula</option>
+                <option value="Certificación bancaria">Extracto</option>
+                <option value="Certificación laboral">Certificación laboral</option>
+                <option value="Comprobante Pago">Comprobante Pago</option>
+              <input type="submit" value="Upload" />
+            </form>
+          </div>
+
+          <script>
+            function showDiv() {
+              if (document.getElementById('div1').style.display == "block"){
+                document.getElementById('div1').style.display = "none";
+              }
+              else{
+                document.getElementById('div1').style.display = "block";
+              }   
+            }
+
+
+          </script>
           <div style="text-align: center">
             <button
               type="button"
@@ -39,7 +66,16 @@
             >
               Back
             </button>
+            <button
+              type="button"
+              class="btn btn-primary waves-effect waves-light"
+              onClick= window.location.href='/' >Enviar solicitud
+            </button>
+
+            
+            
           </div>
+          
         </div>
       </div>
     </div>
