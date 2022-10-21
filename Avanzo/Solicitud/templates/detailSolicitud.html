@@ -38,11 +38,11 @@
               {% csrf_token %}
               <input type="file" name="file" />
               <select name="tipo">
-                <option value="Cedula">Cedula</option>
-                <option value="Certificación bancaria">Extracto</option>
-                <option value="Certificación laboral">Certificación laboral</option>
-                <option value="Comprobante Pago">Comprobante Pago</option>
-              <input type="submit" value="Upload" />
+                <option value="CP">Comprobante de Pago</option>
+                <option value="CB">Certificación Bancaria</option>
+                <option value="CE">Cédula</option>
+                <option value="CL">Certificación Laboral</option>
+              <input type="submit" value="Subir el documento" />
             </form>
           </div>
 
@@ -66,14 +66,7 @@
             >
               Back
             </button>
-            <button
-              type="button"
-              class="btn btn-primary waves-effect waves-light"
-              onClick= window.location.href='/' >Enviar solicitud
-            </button>
-
-            
-            
+                   
           </div>
           
         </div>
