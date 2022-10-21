@@ -66,7 +66,7 @@ def mapeoSegunDocumento(path: str, tipo: str, idSolicitud: int) -> bool:
     Returns:
         bool: True si se agregó el documento, False si no
     """
-    doc = convert_from_path(path, 500,poppler_path="C:/Program Files (x86)/poppler-0.68.0/bin")
+    doc = convert_from_path(path, 500)
 
     if tipo == 'CP':
         return mapearComprobantePago(doc[0], idSolicitud)
