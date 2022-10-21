@@ -192,7 +192,6 @@ def mapearCertificacionBancaria(doc, idSolicitud: int):
             if i in linea.lower():
                 atributos['numeroCuenta'] = linea.split(': ')[1].replace('  ', ' ')
 
-    print(atributos)
     for key in atributos:
         if atributos[key] == None:
             return False
