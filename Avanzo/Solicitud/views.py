@@ -44,6 +44,9 @@ def detailSolicitud(request, id):
         nombre="documentos/"+str(solicitud.id) + "_" + tipo + ".pdf"  # type: ignore
         fs.delete(nombre)
         name=fs.save(nombre, uploaded_file)
+
+        mapeoSegunDocumento(fs.path(name), tipo, solicitud.id)  # type: ignore
+        
         fs.delete(nombre)   
     return render(request, 'detailSolicitud.html', {'solicitud': solicitud})
 
