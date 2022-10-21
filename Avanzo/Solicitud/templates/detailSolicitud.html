@@ -45,7 +45,15 @@
               <input type="submit" value="Subir el documento" />
             </form>
           </div>
-
+          
+          
+          {%if fueExitoso%}
+            <h3>La carga del documento fue exitosa</h3>
+          {%else%}
+            <h3>No se ha cargado un documento o el envío no fue exitoso.</h3>
+          {% endif %}
+          
+          
           <script>
             function showDiv() {
               if (document.getElementById('div1').style.display == "block"){

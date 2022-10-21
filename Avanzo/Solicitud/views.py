@@ -40,6 +40,7 @@ def detailSolicitud(request, id):
         _type_: _description_
     """
     solicitud = getSolicitudById(id)
+    fueExitoso = False # False o True son si fue existoso o no
     if request.method=="POST":
         uploaded_file=request.FILES['file']
         tipo=request.POST.get('tipo')
@@ -48,10 +49,10 @@ def detailSolicitud(request, id):
         fs.delete(nombre)
         name=fs.save(nombre, uploaded_file)
 
-        mapeoSegunDocumento(fs.path(name), tipo, solicitud.id)  # type: ignore
+        fueExitoso = mapeoSegunDocumento(fs.path(name), tipo, solicitud.id)  # type: ignore
         
         fs.delete(nombre)   
-    return render(request, 'detailSolicitud.html', {'solicitud': solicitud})
+    return render(request, 'detailSolicitud.html', {'solicitud': solicitud, 'fueExitoso': fueExitoso})
 
 
 
@@ -68,15 +69,17 @@ def mapeoSegunDocumento(path: str, tipo: str, idSolicitud: int) -> bool:
     """
     doc = convert_from_path(path, 500)
 
-    if tipo == 'CP':
-        return mapearComprobantePago(doc[0], idSolicitud)
-    elif tipo == 'CB':
-        return mapearCertificacionBancaria(doc[0], idSolicitud)
-    elif tipo == 'CE':
-        return mapearCedula(doc[0], idSolicitud)
-    elif tipo == 'CL':
-        return mapearCertificacionLaboral(doc[0], idSolicitud)
-        
+    try:
+        if tipo == 'CP':
+            return mapearComprobantePago(doc[0], idSolicitud)
+        elif tipo == 'CB':
+            return mapearCertificacionBancaria(doc[0], idSolicitud)
+        elif tipo == 'CE':
+            return mapearCedula(doc[0], idSolicitud)
+        elif tipo == 'CL':
+            return mapearCertificacionLaboral(doc[0], idSolicitud)
+    except:
+        return False
     return False
 
 
