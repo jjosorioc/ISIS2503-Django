@@ -66,7 +66,7 @@ def mapeoSegunDocumento(path: str, tipo: str, idSolicitud: int) -> bool:
     Returns:
         bool: True si se agregó el documento, False si no
     """
-    doc = convert_from_path(path, 500)
+    doc = convert_from_path(path, 500,poppler_path="C:/Program Files (x86)/poppler-0.68.0/bin")
 
     if tipo == 'CP':
         return mapearComprobantePago(doc[0], idSolicitud)
@@ -226,7 +226,9 @@ def mapearCertificacionLaboral(doc, idSolicitud: int):
     Returns:
         _type_: _description_
     """
+
     text = pytesseract.image_to_string(doc, lang='eng+spa')
+
     listaSegunLineas = text.split('\n')
     atributos = {
         'tipo': 'CL',
