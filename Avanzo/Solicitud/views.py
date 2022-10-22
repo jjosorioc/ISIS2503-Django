@@ -109,7 +109,7 @@ def mapearComprobantePago(doc, idSolicitud: int):
                     atributos['empresaComprobante'] = objectEmpresa
                 except:
                     atributos['empresaComprobante'] = None
-        for i in ['comprobante', 'número', 'numero']:
+        for i in ['número', 'numero']:
             if i in linea.lower():
                 atributos['idComprobante'] = linea.split(': ')[1].replace('  ', ' ') 
         for i in ['destinatario', 'beneficiario', 'cliente']:
