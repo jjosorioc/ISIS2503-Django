@@ -86,7 +86,7 @@ DATABASES = {
         'NAME': 'solicitudes_db',
         'USER': 'avanzo_db',
         'PASSWORD': 'isis2503',
-        'HOST': '',
+        'HOST': '10.85.208.3',
         'PORT': '5432',
     }
 }
