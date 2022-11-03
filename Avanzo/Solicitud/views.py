@@ -1,5 +1,6 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-
+from Avanzo.auth0backend import getRole
 from Documento.models import CertificacionLaboral
 from Documento.models import ComprobantePago
 from Documento.models import CertificacionBancaria
@@ -12,23 +13,29 @@ from EmpresaAfiliada.models import EmpresaAfiliada
 import pytesseract
 from pdf2image import convert_from_path
 
+@login_required
 def listaSolicitudes(request):
-    solicitudes=get_solicitudes()
+    role=getRole(request)
+    if role =="Empresa Afiliada" or role =="Empleado":
+        solicitudes=get_solicitudes()
 
-    id=request.GET.get('q')
-    if id != None:
-        old=solicitudes
-        solicitudes=getSolicitudesByEmpleado(id)
+        id=request.GET.get('q')
+        if id != None:
+            old=solicitudes
+            solicitudes=getSolicitudesByEmpleado(id)
 
-        if(solicitudes==None):
-            solicitudes=old
-    return render(request, 'solicitud.html', {'solicitudes': solicitudes})
+            if(solicitudes==None):
+                solicitudes=old
+        return render(request, 'solicitud.html', {'solicitudes': solicitudes})
+    else:
+        return HttpResponse("Unauthorized User")
 
+@login_required
 def getSolicitudById(id):
     queryset=Solicitud.objects.get(id=id)
     return queryset
 
-
+@login_required
 def detailSolicitud(request, id):
     """_summary_
 
@@ -55,7 +62,7 @@ def detailSolicitud(request, id):
     return render(request, 'detailSolicitud.html', {'solicitud': solicitud, 'fueExitoso': fueExitoso})
 
 
-
+@login_required
 def mapeoSegunDocumento(path: str, tipo: str, idSolicitud: int) -> bool:
     """Busca el tipo de documento y lo mapea a la base de datos
 
@@ -82,7 +89,7 @@ def mapeoSegunDocumento(path: str, tipo: str, idSolicitud: int) -> bool:
         return False
     return False
 
-
+@login_required
 def mapearComprobantePago(doc, idSolicitud: int):
     text = pytesseract.image_to_string(doc, lang='eng+spa')
     listaSegunLineas = text.split('\n')
@@ -151,7 +158,7 @@ def mapearComprobantePago(doc, idSolicitud: int):
     
                 
     return True
-
+@login_required
 def mapearCertificacionBancaria(doc, idSolicitud: int):
     text = pytesseract.image_to_string(doc, lang='eng+spa')
     listaSegunLineas = text.split('\n')
@@ -213,12 +220,12 @@ def mapearCertificacionBancaria(doc, idSolicitud: int):
     )
     
     return True
-
+@login_required
 def mapearCedula(doc, idSolicitud: int):
     text = pytesseract.image_to_string(doc, lang='eng+spa')
     print(text)
     return True
-
+@login_required
 def mapearCertificacionLaboral(doc, idSolicitud: int):
     """Mapea la certificación laboral a la base de datos
 
@@ -292,3 +299,4 @@ def mapearCertificacionLaboral(doc, idSolicitud: int):
         terminoContrato = atributos['terminoContrato']
     )
     return True
+
