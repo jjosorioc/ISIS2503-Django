@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from Avanzo.auth0backend import getRole
@@ -30,7 +31,7 @@ def listaSolicitudes(request):
     else:
         return HttpResponse("Unauthorized User")
 
-@login_required
+
 def getSolicitudById(id):
     queryset=Solicitud.objects.get(id=id)
     return queryset
@@ -63,6 +64,27 @@ def detailSolicitud(request, id):
 
 
 @login_required
+def detailEditarSolicitud(request, id) -> HttpResponse:
+    """Requerimiento de Integridad
+
+    Args:
+        request
+        id
+
+    Returns:
+        HttpResponse: Indica si el acceso fue autorizado.
+    """
+    role=getRole(request)
+    print("El rol es: " + role)
+    if role != "Empleado":
+        # solicitud = getSolicitudById(id=id)
+        return HttpResponse("Authorized Client")
+    else:
+        return HttpResponse("Unauthorized User")
+        
+    
+
+
 def mapeoSegunDocumento(path: str, tipo: str, idSolicitud: int) -> bool:
     """Busca el tipo de documento y lo mapea a la base de datos
 
@@ -89,7 +111,8 @@ def mapeoSegunDocumento(path: str, tipo: str, idSolicitud: int) -> bool:
         return False
     return False
 
-@login_required
+
+
 def mapearComprobantePago(doc, idSolicitud: int):
     text = pytesseract.image_to_string(doc, lang='eng+spa')
     listaSegunLineas = text.split('\n')
@@ -158,7 +181,8 @@ def mapearComprobantePago(doc, idSolicitud: int):
     
                 
     return True
-@login_required
+
+
 def mapearCertificacionBancaria(doc, idSolicitud: int):
     text = pytesseract.image_to_string(doc, lang='eng+spa')
     listaSegunLineas = text.split('\n')
@@ -220,12 +244,14 @@ def mapearCertificacionBancaria(doc, idSolicitud: int):
     )
     
     return True
-@login_required
+
+
 def mapearCedula(doc, idSolicitud: int):
     text = pytesseract.image_to_string(doc, lang='eng+spa')
     print(text)
     return True
-@login_required
+
+
 def mapearCertificacionLaboral(doc, idSolicitud: int):
     """Mapea la certificación laboral a la base de datos
 
