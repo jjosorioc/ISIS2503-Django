@@ -8,4 +8,4 @@ class EmpresaAfiliada(models.Model):
     nit = models.CharField(max_length=50, unique=True, null=True)
 
     def __str__(self) ->str:
-        return self.nombre
+        return str(self.nombre)

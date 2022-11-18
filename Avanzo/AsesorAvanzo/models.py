@@ -7,4 +7,4 @@ class AsesorAvanzo(models.Model):
     identificacion = models.CharField(max_length=15)
 
     def __str__(self) -> str:
-        return self.nombre
+        return str(self.nombre)

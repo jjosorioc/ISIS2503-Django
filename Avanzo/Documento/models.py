@@ -55,7 +55,7 @@ class CertificacionLaboral(Documento):
     terminoContrato = models.CharField(max_length=100) 
 
     def __str__(self) -> str:
-        return self.nombre + " | " + str(self.empresa) + " | "+ self.terminoContrato
+        return str(self.nombre) + " | " + str(self.empresa) + " | "+ self.terminoContrato
 
 
 
@@ -110,7 +110,7 @@ class CertificacionBancaria(Documento):
     numeroCuenta = models.CharField(max_length=30)
 
     def __str__(self) -> str:
-        return self.destinatario + " | "+ self.bancoCuenta + " | " + self.tipoCuenta + " | " + self.numeroCuenta
+        return str(self.destinatario) + " | "+ self.bancoCuenta + " | " + self.tipoCuenta + " | " + self.numeroCuenta
 
 
 class ComprobantePago(Documento):

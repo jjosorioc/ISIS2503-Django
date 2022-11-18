@@ -15,27 +15,26 @@ import pytesseract
 from pdf2image import convert_from_path
 from django.views.decorators.csrf import csrf_exempt
 
-@login_required
+
 def listaSolicitudes(request):
-    role=getRole(request)
-    if role =="Empresa Afiliada" or role =="Empleado":
-        solicitudes=get_solicitudes()
+    
+    solicitudes=get_solicitudes()
 
-        id=request.GET.get('q')
-        if id != None:
-            old=solicitudes
-            solicitudes=getSolicitudesByEmpleado(id)
+    id=request.GET.get('q')
+    if id != None:
+        old=solicitudes
+        solicitudes=getSolicitudesByEmpleado(id)
 
-            if(solicitudes==None):
-                solicitudes=old
-        return render(request, 'solicitud.html', {'solicitudes': solicitudes})
-    else:
-        return HttpResponse("Unauthorized User")
+        if(solicitudes==None):
+            solicitudes=old
+    return render(request, 'solicitud.html', {'solicitudes': solicitudes})
+   
 
 
 def getSolicitudById(id):
     queryset=Solicitud.objects.get(id=id)
     return queryset
+
 
 @csrf_exempt 
 def detailSolicitud(request, id):
