@@ -13,6 +13,7 @@ from Solicitud.logic.logic_solicitud import get_solicitudes
 from EmpresaAfiliada.models import EmpresaAfiliada
 import pytesseract
 from pdf2image import convert_from_path
+from django.views.decorators.csrf import csrf_exempt
 
 @login_required
 def listaSolicitudes(request):
@@ -36,7 +37,7 @@ def getSolicitudById(id):
     queryset=Solicitud.objects.get(id=id)
     return queryset
 
-@login_required
+@csrf_exempt 
 def detailSolicitud(request, id):
     """_summary_
 
@@ -48,16 +49,17 @@ def detailSolicitud(request, id):
         _type_: _description_
     """
     solicitud = getSolicitudById(id)
+    
     fueExitoso = False # False o True son si fue existoso o no
     if request.method=="POST":
         uploaded_file=request.FILES['file']
         tipo=request.POST.get('tipo')
         fs=FileSystemStorage()
-        nombre="documentos/"+str(solicitud.id) + "_" + tipo + ".pdf"  # type: ignore
+        nombre="documentos/"+str(id) + "_" + tipo + ".pdf"  # type: ignore
         fs.delete(nombre)
         name=fs.save(nombre, uploaded_file)
 
-        fueExitoso = mapeoSegunDocumento(fs.path(name), tipo, solicitud.id)  # type: ignore
+        fueExitoso = mapeoSegunDocumento(fs.path(name), tipo, id)  # type: ignore
         
         fs.delete(nombre)   
     return render(request, 'detailSolicitud.html', {'solicitud': solicitud, 'fueExitoso': fueExitoso})

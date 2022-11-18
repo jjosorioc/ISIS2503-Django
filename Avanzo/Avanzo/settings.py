@@ -147,3 +147,6 @@ SOCIAL_AUTH_AUTH0_KEY = 'CqU8esbH8ZBPoDEEC9iZmgkQ9jHuyiEd'
 SOCIAL_AUTH_AUTH0_SECRET = '634y6ZBvPX5vbggYqHY3V9n5v625kRQfgJXoB-5pY4oAmyqcGpoKrXrBDTQzw1U0' 
 SOCIAL_AUTH_AUTH0_SCOPE = [ 'openid', 'profile','email', 'role', ] 
 AUTHENTICATION_BACKENDS = { 'Avanzo.auth0backend.Auth0', 'django.contrib.auth.backends.ModelBackend', }
+CSRF_COOKIE_SECURE=False
+CSRF_COOKIE_HTTPONLY = False
+SESSION_COOKIE_SECURE = False
