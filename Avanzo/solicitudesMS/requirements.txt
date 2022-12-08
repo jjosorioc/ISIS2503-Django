@@ -1,0 +1,6 @@
+Django==4.1.2
+# psycopg2==2.7.7
+# psycopg2-binary==2.7.7
+pytesseract==0.3.10
+pdf2image==1.16.0
+social-auth-app-django==5.0.0

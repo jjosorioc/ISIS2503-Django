@@ -1,0 +1,87 @@
+{% extends 'base.html' %} {% block content %}
+<div class="content">
+  <div class="">
+    <div class="page-header-title">
+      <h4 class="page-title">Solicitud Detail</h4>
+
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <table class="table table-hover">
+            <thead>
+              <tr style="color: #4a73ad">
+                <th font color="red">Empleado</th>
+                <th>ID solicitud</th>
+                <th>Nombre empleado</th>
+                <th>cantidad</th>
+                <th>Fecha de Pago</th>
+                <th>Nombre asesor</th>
+                <th>Estado solicitud</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{solicitud.id}}</td>
+                <td>{{ solicitud.empleadoAfiliado.nombre }}</td>
+                <td>{{ solicitud.empleadoAfiliado.identificacion }}</td>
+                <td>{{ solicitud.cantidad }}</td>
+                <td>{{ solicitud.fechaPago }}</td>
+                <td>{{ solicitud.asesor.nombre }}</td>
+                <td>{{ solicitud.estado }}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <a href="{%url 'detailEditar' id=solicitud.id%}" id="btnEditar">Editar solicitud</a>
+
+          <button onclick="showDiv()">Subir documento</button>
+
+          <div id="div1" style="display:none;">
+            <form method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              <input type="file" name="file" />
+              <select name="tipo">
+                <option value="CP">Comprobante de Pago</option>
+                <option value="CB">Certificación Bancaria</option>
+                <option value="CE">Cédula</option>
+                <option value="CL">Certificación Laboral</option>
+              <input type="submit" value="Subir el documento" />
+            </form>
+          </div>
+          
+          
+          {%if fueExitoso%}
+            <h3>La carga del documento fue exitosa</h3>
+          {%else%}
+            <h3>No se ha cargado un documento o el envío no fue exitoso.</h3>
+          {% endif %}
+          
+          
+          <script>
+            function showDiv() {
+              if (document.getElementById('div1').style.display == "block"){
+                document.getElementById('div1').style.display = "none";
+              }
+              else{
+                document.getElementById('div1').style.display = "block";
+              }   
+            }
+
+
+          </script>
+          <div style="text-align: center">
+            <button
+              type="button"
+              class="btn btn-primary waves-effect waves-light"
+              onClick=" window.location.href='/' "
+            >
+              Back
+            </button>
+                   
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
