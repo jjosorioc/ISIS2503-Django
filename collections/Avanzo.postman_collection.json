@@ -10,130 +10,163 @@
 			"name": "Kong",
 			"item": [
 				{
-					"name": "Registrar servicio SolicitudesMS",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\":\"solicitudes\",\r\n    \"url\": \"http://35.232.113.173:8080\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+					"name": "Load Balancer Solicitudes",
+					"item": [
+						{
+							"name": "Registrar servicio Solicitudes Load Balancer",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"solicitudes\",\r\n    \"url\": \"http://34.120.133.111:80\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://34.68.27.173:8001/services",
+									"protocol": "http",
+									"host": [
+										"34",
+										"68",
+										"27",
+										"173"
+									],
+									"port": "8001",
+									"path": [
+										"services"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "http://34.68.27.173:8001/services",
-							"protocol": "http",
-							"host": [
-								"34",
-								"68",
-								"27",
-								"173"
-							],
-							"port": "8001",
-							"path": [
-								"services"
-							]
+						{
+							"name": "Registrar rutas Solicitudes Load Balancer",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"hosts\": [\"34.120.133.111\", \"0.0.0.0\", \"34.68.27.173\"],\r\n    \"paths\": [\"/solicitudes\", \"~/solicitudes/\\\\d+\", \"~/solicitudes/\\\\d+/edit\"],\r\n    \"strip_path\": false,\r\n    \"methods\": [\r\n        \"GET\"\r\n    ],\r\n    \"service\": {\r\n        \"id\": \"4a1429de-8614-4802-86ac-5b978caa1680\"\r\n    },\r\n    \"preserve_host\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://34.68.27.173:8001/routes/",
+									"protocol": "http",
+									"host": [
+										"34",
+										"68",
+										"27",
+										"173"
+									],
+									"port": "8001",
+									"path": [
+										"routes",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Solicitudes",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://34.68.27.173:8001/services/solicitudes",
+									"protocol": "http",
+									"host": [
+										"34",
+										"68",
+										"27",
+										"173"
+									],
+									"port": "8001",
+									"path": [
+										"services",
+										"solicitudes"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
-					"name": "Registrar servicio load balancer",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\":\"loadBalancer\",\r\n    \"url\": \"http://34.120.133.111:80\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+					"name": "Página Principal y Auth0",
+					"item": [
+						{
+							"name": "Registrar Página Principal y Auth0",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"principal\",\r\n    \"url\": \"http://35.232.113.173:8080\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://34.68.27.173:8001/services",
+									"protocol": "http",
+									"host": [
+										"34",
+										"68",
+										"27",
+										"173"
+									],
+									"port": "8001",
+									"path": [
+										"services"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "http://34.68.27.173:8001/services",
-							"protocol": "http",
-							"host": [
-								"34",
-								"68",
-								"27",
-								"173"
-							],
-							"port": "8001",
-							"path": [
-								"services"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Registrar ruta Solicitudes MS",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"hosts\": [\"35.232.113.173\", \"0.0.0.0\", \"34.68.27.173\"],\r\n    \"paths\": [\"/solicitudes\", \"~/solicitudes/\\\\d+\", \"~/solicitudes/\\\\d+/edit\"],\r\n    \"strip_path\": false,\r\n    \"methods\": [\r\n        \"GET\"\r\n    ],\r\n    \"service\": {\r\n        \"id\": \"b744078a-bff3-4fc9-8192-241e12870589\"\r\n    },\r\n    \"preserve_host\": true\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+						{
+							"name": "Registrar rutas Página Principal y Auth0",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"hosts\": [\"35.232.113.173\", \"0.0.0.0\", \"34.68.27.173\"],\r\n    \"paths\": [\"/admin\", \"/\", \"/login/auth0\"],\r\n    \"strip_path\": false,\r\n    \"methods\": [\r\n        \"GET\"\r\n    ],\r\n    \"service\": {\r\n        \"id\": \"1b798854-272c-4014-9396-ae783f5790f0\"\r\n    },\r\n    \"preserve_host\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://34.68.27.173:8001/routes/",
+									"protocol": "http",
+									"host": [
+										"34",
+										"68",
+										"27",
+										"173"
+									],
+									"port": "8001",
+									"path": [
+										"routes",
+										""
+									]
 								}
-							}
-						},
-						"url": {
-							"raw": "http://34.68.27.173:8001/routes/",
-							"protocol": "http",
-							"host": [
-								"34",
-								"68",
-								"27",
-								"173"
-							],
-							"port": "8001",
-							"path": [
-								"routes",
-								""
-							]
+							},
+							"response": []
 						}
-					},
-					"response": []
-				},
-				{
-					"name": "Registrar rutas Load Balancer",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"hosts\": [\"34.120.133.111\", \"0.0.0.0\", \"34.68.27.173\"],\r\n    \"paths\": [\"/admin\", \"/\", \"/login/auth0\"],\r\n    \"strip_path\": false,\r\n    \"methods\": [\r\n        \"GET\"\r\n    ],\r\n    \"service\": {\r\n        \"id\": \"d41bd768-1186-43c6-9400-0c15326a8eb1\"\r\n    },\r\n    \"preserve_host\": true\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://34.68.27.173:8001/routes/",
-							"protocol": "http",
-							"host": [
-								"34",
-								"68",
-								"27",
-								"173"
-							],
-							"port": "8001",
-							"path": [
-								"routes",
-								""
-							]
-						}
-					},
-					"response": []
+					]
 				}
 			]
 		}
